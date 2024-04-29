@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 1,
+    "Name": "FULL STACK DEVELOPER",
+    "DepartmentId": 1,
+    "LocationId": 1,
+    "Description": "NONE"
+  },
+  {
+    "Id": 2,
+    "Name": "TRAINEE",
+    "DepartmentId": 1,
+    "LocationId": 2,
+    "Description": "NONE"
+  },
+  {
+    "Id": 3,
+    "Name": "YUI",
+    "DepartmentId": 2,
+    "LocationId": 2,
+    "Description": "NONE"
+  },
+  {
+    "Id": 4,
+    "Name": "BACKEND DEVELOPER",
+    "DepartmentId": 1,
+    "LocationId": 2,
+    "Description": "NONE"
+  },
+  {
+    "Id": 5,
+    "Name": "LEAD DEVELOPER",
+    "DepartmentId": 1,
+    "LocationId": 1,
+    "Description": "NONE"
+  },
+  {
+    "Id": 6,
+    "Name": "MANAGER",
+    "DepartmentId": 1,
+    "LocationId": 1,
+    "Description": "NONE"
+  },
+  {
+    "Id": 7,
+    "Name": "TESTING",
+    "DepartmentId": 6,
+    "LocationId": 1,
+    "Description": "NONE"
+  },
+  {
+    "Id": 8,
+    "Name": "ERT",
+    "DepartmentId": 1,
+    "LocationId": 2,
+    "Description": "NONE"
+  }
+]

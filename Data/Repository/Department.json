@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "Name": "PROD ENGG"
+  },
+  {
+    "Id": 2,
+    "Name": "FGHJ"
+  },
+  {
+    "Id": 3,
+    "Name": "GTY"
+  },
+  {
+    "Id": 4,
+    "Name": "HR"
+  },
+  {
+    "Id": 5,
+    "Name": "UX"
+  },
+  {
+    "Id": 6,
+    "Name": "SYSTEM TESTING"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "Id": "TZ0002",
+    "FirstName": "ANAND",
+    "LastName": "INEDI",
+    "DateOfBirth": "23/07/2002",
+    "Email": "ANAND@GMAIL.COM",
+    "MobileNumber": "NONE",
+    "JoinDate": "22/02/2000",
+    "JobTitleId": 4,
+    "LocationId": 2,
+    "DepartmentId": 1,
+    "ManagerId": "TZ0004",
+    "ProjectId": 3
+  },
+  {
+    "Id": "TZ0004",
+    "FirstName": "SANTHOSH",
+    "LastName": "SAMUDRALA",
+    "DateOfBirth": "NONE",
+    "Email": "SANTHOSH@GMAIL.COM",
+    "MobileNumber": "NONE",
+    "JoinDate": "22/02/2023",
+    "JobTitleId": 5,
+    "LocationId": 1,
+    "DepartmentId": 1,
+    "ManagerId": "NONE",
+    "ProjectId": 1
+  },
+  {
+    "Id": "TZ0005",
+    "FirstName": "JAGADEESH",
+    "LastName": "INEDI",
+    "DateOfBirth": "NONE",
+    "Email": "JAGADEESH@GMAIL.COM",
+    "MobileNumber": "NONE",
+    "JoinDate": "22/02/1999",
+    "JobTitleId": 4,
+    "LocationId": 2,
+    "DepartmentId": 1,
+    "ManagerId": "NONE",
+    "ProjectId": 2
+  }
+]
