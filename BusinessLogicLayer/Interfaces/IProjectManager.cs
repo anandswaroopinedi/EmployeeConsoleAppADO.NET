@@ -6,6 +6,5 @@ namespace BusinessLogicLayer.Interfaces
     {
         public Task<bool> AddProject(Project project);
         public Task<List<Project>> GetAll();
-        public Task<string> GetProjectName(int id);
     }
 }

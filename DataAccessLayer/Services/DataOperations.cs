@@ -20,12 +20,12 @@ namespace DataAccessLayer.Services
             cmd.Parameters.AddWithValue("@Email", employee.Email);
             if (!string.IsNullOrEmpty(employee.MobileNumber))
                 cmd.Parameters.AddWithValue("@MobileNo", employee.MobileNumber);
-            cmd.Parameters.AddWithValue("@RoleID", employee.JobTitleId);
-            cmd.Parameters.AddWithValue("@LocationID", employee.LocationId);
-            cmd.Parameters.AddWithValue("@DepartmentID", employee.DepartmentId);
+            cmd.Parameters.AddWithValue("@Role", employee.JobTitle);
+            cmd.Parameters.AddWithValue("@Location", employee.Location);
+            cmd.Parameters.AddWithValue("@Department", employee.Department);
             if (!string.IsNullOrEmpty(employee.ManagerId))
                 cmd.Parameters.AddWithValue("@ManagerID", employee.ManagerId);
-            cmd.Parameters.AddWithValue("@ProjectID", employee.ProjectId);
+            cmd.Parameters.AddWithValue("@Project", employee.Project);
         }
         public async Task<bool> AddEmployeeToDb(Employee employee)
         {
@@ -57,7 +57,6 @@ namespace DataAccessLayer.Services
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("uspInsertDepartment", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID", department.Id);
                     cmd.Parameters.AddWithValue("@Name", department.Name);
                     cmd.ExecuteNonQuery();
                     return true;
@@ -78,7 +77,6 @@ namespace DataAccessLayer.Services
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("uspInsertProject", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID", project.Id);
                     cmd.Parameters.AddWithValue("@Name", project.Name);
                     cmd.ExecuteNonQuery();
                     return true;
@@ -99,7 +97,6 @@ namespace DataAccessLayer.Services
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("uspInsertLocation", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID", location.Id);
                     cmd.Parameters.AddWithValue("@Name", location.Name);
                     cmd.ExecuteNonQuery();
                     return true;
@@ -120,12 +117,11 @@ namespace DataAccessLayer.Services
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("uspInsertRole", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID", role.Id);
                     cmd.Parameters.AddWithValue("@Name", role.Name);
                     if (role.Description != null)
                         cmd.Parameters.AddWithValue("@Description", role.Description);
-                    cmd.Parameters.AddWithValue("@DepartmentId", role.DepartmentId);
-                    cmd.Parameters.AddWithValue("@LocationId", role.LocationId);
+                    cmd.Parameters.AddWithValue("@Department", role.Department);
+                    cmd.Parameters.AddWithValue("@Location", role.Location);
                     cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -167,14 +163,18 @@ namespace DataAccessLayer.Services
             employee.FirstName = Convert.ToString(reader[1]);
             employee.LastName = Convert.ToString(reader[2]);
             employee.DateOfBirth = Convert.ToString(reader[3]);
+            if (string.IsNullOrEmpty(employee.DateOfBirth))
+                employee.DateOfBirth = "None";
             employee.Email = Convert.ToString(reader[4]);
             employee.MobileNumber = Convert.ToString(reader[5]);
+            if (string.IsNullOrEmpty(employee.MobileNumber))
+                employee.MobileNumber = "None";
             employee.JoinDate = Convert.ToString(reader[6]).Substring(0, 10);
-            employee.JobTitleId = Convert.ToInt32(reader[7]);
-            employee.LocationId = Convert.ToInt32(reader[8]);
-            employee.DepartmentId = Convert.ToInt32(reader[9]);
+            employee.JobTitle = Convert.ToString(reader[7]);
+            employee.Location = Convert.ToString(reader[8]);
+            employee.Department = Convert.ToString(reader[9]);
             employee.ManagerId = Convert.ToString(reader[10]);
-            employee.ProjectId = Convert.ToInt32(reader[11]);
+            employee.Project = Convert.ToString(reader[11]);
         }
         public async Task<List<Employee>> GetEmployees()
         {
@@ -299,9 +299,19 @@ namespace DataAccessLayer.Services
                         Roles role = new Roles();
                         role.Id = Convert.ToInt32(reader[0]);
                         role.Name = Convert.ToString(reader[1]);
-                        role.DepartmentId = Convert.ToInt32(reader[2]);
-                        role.LocationId = Convert.ToInt32(reader[3]);
+                        role.Department = Convert.ToString(reader[2]);
+                        role.Location= Convert.ToString(reader[3]);
+                        /*if (string.IsNullOrEmpty(Convert.ToString(reader[4]))) 
+                        {
+                            role.Description = null;
+                        }
+                        else
+                        {
+                            role.Description = Convert.ToString(reader[4]);
+                        }*/
                         role.Description = Convert.ToString(reader[4]);
+                        if (string.IsNullOrEmpty(role.Description))
+                            role.Description = "None";
                         roles.Add(role);
                     }
                     return roles;

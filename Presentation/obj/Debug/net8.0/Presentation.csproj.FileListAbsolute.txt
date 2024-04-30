@@ -43,3 +43,4 @@ C:\Users\anand.i\source\repos\Employee Replica\Presentation\obj\Debug\net8.0\ref
 C:\Users\anand.i\source\repos\Employee Replica\Presentation\obj\Debug\net8.0\Presentation.pdb
 C:\Users\anand.i\source\repos\Employee Replica\Presentation\obj\Debug\net8.0\Presentation.genruntimeconfig.cache
 C:\Users\anand.i\source\repos\Employee Replica\Presentation\obj\Debug\net8.0\ref\Presentation.dll
+C:\Users\anand.i\source\repos\Employee Replica\Presentation\obj\Debug\net8.0\Presentation.sourcelink.json

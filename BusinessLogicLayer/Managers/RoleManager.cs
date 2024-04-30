@@ -15,9 +15,6 @@ namespace BusinessLogicLayer.Managers
 
         public async Task<bool> AddRole(Roles role)
         {
-            List<Roles> roleList = GetAll().Result;
-            role.Id = roleList.Count + 1;
-            roleList.Add(role);
             if (await _dataOperations.AddRoleToDb(role))
             {
                 return true;

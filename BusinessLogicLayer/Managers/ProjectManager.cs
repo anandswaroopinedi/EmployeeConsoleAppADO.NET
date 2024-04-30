@@ -19,7 +19,6 @@ namespace BusinessLogicLayer.Managers
 
             if (!CheckProjectExists(project.Name, projectList))
             {
-                project.Id = projectList.Count + 1;
                 projectList.Add(project);
                 if (await _dataOperations.AddProjectToDb(project))
                 {
@@ -43,18 +42,6 @@ namespace BusinessLogicLayer.Managers
                 }
             }
             return false;
-        }
-        public async Task<string> GetProjectName(int id)
-        {
-            List<Project> projectList = await GetAll();
-            for (int i = 0; i < projectList.Count; i++)
-            {
-                if (projectList[i].Id == id)
-                {
-                    return projectList[i].Name;
-                }
-            }
-            return "";
         }
     }
 }

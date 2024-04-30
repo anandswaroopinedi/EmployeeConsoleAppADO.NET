@@ -19,7 +19,6 @@ namespace BusinessLogicLayer.Managers
 
             if (!CheckLocationExists(location.Name, locationList))
             {
-                location.Id = locationList.Count + 1;
                 locationList.Add(location);
                 if(await _dataOperations.AddLocationToDb(location))
                 {
@@ -32,18 +31,6 @@ namespace BusinessLogicLayer.Managers
         public async Task<List<Location>> GetAll()
         {
             return await _dataOperations.GetLocations();
-        }
-        public async  Task<string> GetLocationName(int id)
-        {
-            List<Location> locationList = await GetAll();
-            for (int i = 0; i < locationList.Count; i++)
-            {
-                if (locationList[i].Id == id)
-                {
-                    return locationList[i].Name;
-                }
-            }
-            return "None";
         }
         public static bool CheckLocationExists(string loc, List<Location> locationList)
         {

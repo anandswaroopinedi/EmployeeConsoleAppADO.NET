@@ -8,19 +8,13 @@ namespace Presentation.Services
     {
         private readonly IEmployeeManager _employeeManager;
         private readonly IEmployeePropertyEntryManager _employeePropertyEntryManager;
-        private readonly IProjectManager _projectManager;
-        private readonly ILocationManager _locationManager;
-        private readonly IDepartmentManager _departmentManager;
-        private readonly IRoleManager _roleManager;
+
         private string _OutputFormat = "{0,-8} {1,-24} {2,-12} {3,-24} {4,-18} {5,-24} {6,-24} {7,-24}";
-        public EmployeeManagement(IEmployeeManager employee, IEmployeePropertyEntryManager employeePropertyEntryManager, IDepartmentManager departmentManager, ILocationManager locationManager, IProjectManager projectManager, IRoleManager roleManager)
+        public EmployeeManagement(IEmployeeManager employee, IEmployeePropertyEntryManager employeePropertyEntryManager)
         {
             _employeeManager = employee;
             _employeePropertyEntryManager = employeePropertyEntryManager;
-            _projectManager = projectManager;
-            _locationManager = locationManager;
-            _departmentManager = departmentManager;
-            _roleManager = roleManager;
+
         }
         public async Task<bool> GetUpdateDetails(Employee employee, List<Employee> employeeList)
         {
@@ -102,57 +96,57 @@ namespace Presentation.Services
                         }
                         break;
                     case 7:
-                        int roleId =await _employeePropertyEntryManager.ChooseRole();
-                        if (roleId == 0)
+                        string role =await _employeePropertyEntryManager.ChooseRole();
+                        if (role == "Abort")
                         {
                             operation = false;
                             break;
                         }
                         else
                         {
-                            employee.JobTitleId = roleId;
+                            employee.JobTitle = role;
                         }
-                        int deptId = await _employeePropertyEntryManager.ChooseDepartment(employee);
-                        if (deptId == 0)
+                        string dept = await _employeePropertyEntryManager.ChooseDepartment(employee);
+                        if (dept == "Abort")
                         {
                             operation = false;
                             break;
                         }
                         else
                         {
-                            employee.DepartmentId = deptId;
+                            employee.Department = dept;
                         }
-                        int locationId = await _employeePropertyEntryManager.ChooseLocation(employee);
-                        if (locationId == 0)
+                        string location = await _employeePropertyEntryManager.ChooseLocation(employee);
+                        if (location == "Abort")
                         {
                             operation = false;
                         }
                         else
                         {
-                            employee.LocationId = locationId;
+                            employee.Location = location;
                         }
                         break;
                     case 8:
-                        locationId = await _employeePropertyEntryManager.ChooseLocation(employee);
-                        if (locationId == 0)
+                        location = await _employeePropertyEntryManager.ChooseLocation(employee);
+                        if (location == "Abort")
                         {
                             operation = false;
                         }
                         else
                         {
-                            employee.LocationId = locationId;
+                            employee.Location = location;
                         }
                         break;
                     case 9:
-                        deptId = await _employeePropertyEntryManager.ChooseDepartment(employee);
-                        if (deptId == 0)
+                        dept = await _employeePropertyEntryManager.ChooseDepartment(employee);
+                        if (dept == "Abort")
                         {
                             operation = false;
                             break;
                         }
                         else
                         {
-                            employee.DepartmentId = deptId;
+                            employee.Department = dept;
                         }
                         break;
                     case 10:
@@ -167,14 +161,14 @@ namespace Presentation.Services
                         }
                         break;
                     case 11:
-                        int projectId = await _employeePropertyEntryManager.ChooseProject();
-                        if (projectId == 0)
+                        string project = await _employeePropertyEntryManager.ChooseProject();
+                        if (project == "Abort")
                         {
                             operation = false;
                         }
                         else
                         {
-                            employee.ProjectId = projectId;
+                            employee.Project = project;
                         }
                         break;
                     default:
@@ -235,7 +229,7 @@ namespace Presentation.Services
                     string managerName = await GetManagerName(employeeList[index - 1], employeeList);
                     Console.WriteLine(_OutputFormat, "Id", "Full Name", "DateOfBirth", "Email", "MobileNumber", "JoinDate", "JobTitle", "Location", "Department", "ManagerName", "Project");
                     Console.WriteLine(new string('-', 158));
-                    Console.WriteLine(_OutputFormat, employeeList[index - 1].Id, employeeList[index - 1].FirstName + " " + employeeList[index - 1].LastName, employeeList[index - 1].DateOfBirth, employeeList[index - 1].Email, employeeList[index - 1].MobileNumber, employeeList[index - 1].JoinDate,await _roleManager.GetRoleName(employeeList[index - 1].JobTitleId),await _locationManager.GetLocationName(employeeList[index - 1].LocationId),await _departmentManager.GetDepartmentName(employeeList[index - 1].DepartmentId), managerName,await _projectManager.GetProjectName(employeeList[index - 1].ProjectId));
+                    Console.WriteLine(_OutputFormat, employeeList[index - 1].Id, employeeList[index - 1].FirstName + " " + employeeList[index - 1].LastName, employeeList[index - 1].DateOfBirth, employeeList[index - 1].Email, employeeList[index - 1].MobileNumber, employeeList[index - 1].JoinDate,employeeList[index - 1].JobTitle,employeeList[index - 1].Location,employeeList[index - 1].Department, managerName, employeeList[index - 1].Project);
                     Console.WriteLine("Employee Updated successfully");
                 }
                 else
@@ -307,7 +301,7 @@ namespace Presentation.Services
         private async Task ConsoleEmployee(Employee employee, string managerName)
         {
             Console.WriteLine(new string('-', 155));
-            Console.WriteLine(_OutputFormat, employee.Id, employee.FirstName + " " + employee.LastName, employee.JoinDate, await _roleManager.GetRoleName(employee.JobTitleId),await _locationManager.GetLocationName(employee.LocationId),await _departmentManager.GetDepartmentName(employee.DepartmentId), managerName, await _projectManager.GetProjectName(employee.ProjectId));
+            Console.WriteLine(_OutputFormat, employee.Id, employee.FirstName + " " + employee.LastName, employee.JoinDate,employee.JobTitle,employee.Location,employee.Department, managerName,employee.Project);
         }
         public async Task DisplayAll()
         {
@@ -366,18 +360,18 @@ namespace Presentation.Services
             {
                 return false;
             }
-            employee.JobTitleId = await _employeePropertyEntryManager.ChooseRole();
-            if (employee.JobTitleId == 0)
+            employee.JobTitle = await _employeePropertyEntryManager.ChooseRole();
+            if (employee.JobTitle == "Abort")
             {
                 return false;
             }
-            employee.LocationId = await _employeePropertyEntryManager.ChooseLocation(employee);
-            if (employee.LocationId == 0)
+            employee.Location = await _employeePropertyEntryManager.ChooseLocation(employee);
+            if (employee.Location == "Abort")
             {
                 return false;
             }
-            employee.DepartmentId =await _employeePropertyEntryManager.ChooseDepartment(employee);
-            if (employee.DepartmentId == 0)
+            employee.Department =await _employeePropertyEntryManager.ChooseDepartment(employee);
+            if (employee.Department == "Abort")
             {
                 return false;
             }
@@ -386,8 +380,8 @@ namespace Presentation.Services
             {
                 return false;
             }
-            employee.ProjectId =await _employeePropertyEntryManager.ChooseProject();
-            if (employee.ProjectId == 0)
+            employee.Project =await _employeePropertyEntryManager.ChooseProject();
+            if (employee.Project == "Abort")
             {
                 return false;
             }

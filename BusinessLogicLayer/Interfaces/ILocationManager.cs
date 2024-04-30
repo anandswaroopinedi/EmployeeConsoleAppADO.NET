@@ -6,6 +6,5 @@ namespace BusinessLogicLayer.Interfaces
     {
         public Task<bool> AddLocation(Location location);
         public Task<List<Location>> GetAll();
-        public Task<string> GetLocationName(int id);
     }
 }

@@ -46,3 +46,4 @@ C:\Users\anand.i\source\repos\Employee Replica\Employee Replica\obj\Debug\net8.0
 C:\Users\anand.i\source\repos\Employee Replica\Employee Replica\obj\Debug\net8.0\Employee Replica.pdb
 C:\Users\anand.i\source\repos\Employee Replica\Employee Replica\obj\Debug\net8.0\Employee Replica.genruntimeconfig.cache
 C:\Users\anand.i\source\repos\Employee Replica\Employee Replica\obj\Debug\net8.0\ref\Employee Replica.dll
+C:\Users\anand.i\source\repos\Employee Replica\Employee Replica\obj\Debug\net8.0\Employee Replica.sourcelink.json

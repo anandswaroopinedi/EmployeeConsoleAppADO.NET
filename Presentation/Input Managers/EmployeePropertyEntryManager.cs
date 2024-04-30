@@ -212,7 +212,7 @@ namespace Presentation.Services
                 return GetJoiningDate();
             }
         }
-        public async Task<int> ChooseProject()
+        public async Task<string> ChooseProject()
         {
             List<Project> projectList =await _projectManager.GetAll();
             Console.WriteLine("Select Project:");
@@ -227,28 +227,16 @@ namespace Presentation.Services
             int.TryParse(Console.ReadLine(), out int option);
             if (option == 0)
             {
-                return 0;
+                return "Abort";
             }
             else if (option == 1)
             {
-                int result = await _projectManagement.AddProject();
-                if (result == 0)
-                {
-                    return 0;
-                }
-                else if (result == -1)
-                {
-                    return await ChooseProject();
-                }
-                else
-                {
-                    projectList = await _projectManager.GetAll();
-                    return projectList[projectList.Count - 1].Id;
-                }
+                Console.Write("Enter new project name:");
+                return Console.ReadLine().ToUpper();
             }
             if (option > 1 && option <= projectList.Count + 1)
             {
-                return projectList[option - 2].Id;
+                return projectList[option - 2].Name;
             }
             else
             {
@@ -336,7 +324,7 @@ namespace Presentation.Services
                 Console.WriteLine($"{i + 2}. {rolesList[i].Name}");
             }
         }
-        public async Task<int> ChooseRole()
+        public async Task<string> ChooseRole()
         {
             List<Roles> rolesList = await _roleManager.GetAll();
             int option;
@@ -344,33 +332,22 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Enter New Role:");
             DisplayRolesNames(rolesList);
-
             Console.Write("Choose Roles from above options*:");
             int.TryParse(Console.ReadLine(), out option);
             if (option == 0)
             {
-                return 0;
+                return "Abort";
             }
             if (option == 1)
             {
                 /*RoleManagement roleManagement = new RoleManagement();*/
-                int result = await _roleManagement.AddRole();
-                if (result != 0)
-                {
-                    return result;
-                }
-                else if (result == -1)
-                {
-                    return await ChooseRole();
-                }
-                else
-                {
-                    return 0;
-                }
+                Console.Write("Enter New Role:");
+                string newRole= Console.ReadLine().ToUpper();
+                return newRole;
             }
             if (option > 1 && option <= rolesList.Count + 1)
             {
-                return rolesList[option - 2].Id;
+                return rolesList[option - 2].Name;
             }
             else
             {
@@ -387,84 +364,115 @@ namespace Presentation.Services
                 Console.WriteLine("{0,-4}{1,-15}", $"{j}.", $"{Employee.Headers[j]}");
             }
         }
-        public async Task<int> ChooseDepartment(Employee employee)
+        public async Task<string> ChooseDepartment(Employee employee)
         {
+            int option;
             List<Roles> rolesList = await _roleManager.GetAll();
-            List<int> departmentIds = new List<int>();
+            List<String> departments = new List<string>();
             Console.WriteLine("Select Department:");
             Console.WriteLine("0. Exit");
+            int counter = 1;
             for (int j = 0; j < rolesList.Count; j++)
             {
-                if (rolesList[j].Id == employee.JobTitleId)
+                if (rolesList[j].Name == employee.JobTitle)
                 {
-                    departmentIds.Add(rolesList[j].DepartmentId);
-                    List<Department> deptList = await _departmentManager.GetAll();
-                    for (int k = 0; k < deptList.Count; k++)
-                    {
-                        if (rolesList[j].DepartmentId == deptList[k].Id)
-                        {
-                            Console.WriteLine($"{departmentIds.Count}. {deptList[k].Name}");
-                        }
-                    }
-
+                    departments.Add(rolesList[j].Department);
+                    Console.WriteLine($"{counter}. {rolesList[j].Department}");
+                    counter += 1;
                 }
             }
-
-            Console.Write("Choose from the above options:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            if (departments.Count == 0)
             {
-                return 0;
-            }
-            if (option > 0 && option <= departmentIds.Count)
-            {
-                return departmentIds[option - 1];
+                Console.WriteLine("1. Add New Department");
+                Console.Write("Choose from the above options:");
+                int.TryParse(Console.ReadLine(), out option);
+                if (option == 1)
+                {
+                    Console.Write("Enter New Department Name:");
+                    return Console.ReadLine().ToUpper();
+                }
+                else if (option == 0)
+                {
+                    return "Abort";
+                }
+                else
+                {
+                    return ChooseDepartment(employee).Result;
+                }
             }
             else
             {
-                Console.WriteLine("You can only choose from above list");
+                Console.Write("Choose from the above options:");
+                int.TryParse(Console.ReadLine(), out option);
+                if (option == 0)
+                {
+                    return "Abort";
+                }
+                if (option > 0 && option <= departments.Count)
+                {
+                    return departments[option - 1];
+                }
+                else
+                {
+                    Console.WriteLine("You can only choose from above list");
+                }
+                return await ChooseDepartment(employee);
             }
-            return await ChooseDepartment(employee);
         }
-        public async Task<int> ChooseLocation(Employee employee)
+        public async Task<string> ChooseLocation(Employee employee)
         {
+            int option;
             List<Roles> rolesList = await _roleManager.GetAll();
-            List<int> locationIds = new List<int>();
+            List<string> locations = new List<string>();
             Console.WriteLine("Select Location:");
             Console.WriteLine("0. Exit");
+            int counter = 1;
             for (int j = 0; j < rolesList.Count; j++)
             {
-                if (rolesList[j].Id == employee.JobTitleId)
+                if (rolesList[j].Name == employee.JobTitle)
                 {
-                    locationIds.Add(rolesList[j].LocationId);
-                    List<Location> locationModels = await _locationManager.GetAll();
-                    for (int k = 0; k < locationModels.Count; k++)
-                    {
-                        if (locationModels[k].Id == rolesList[j].LocationId)
-                        {
-
-                            Console.WriteLine($"{locationIds.Count}. {locationModels[k].Name}");
-                        }
-
-                    }
+                    locations.Add(rolesList[j].Location);
+                    Console.WriteLine($"{counter}. {rolesList[j].Location}");
+                    counter++;
                 }
             }
-
-            Console.Write("Choose from the above options:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            if (locations.Count == 0)
             {
-                return 0;
-            }
-            if (option > 0 && option <= locationIds.Count)
-            {
-                return locationIds[option - 1];
+                Console.WriteLine("1. Add New Location");
+                Console.Write("Choose from the above options:");
+                int.TryParse(Console.ReadLine(), out option);
+                if (option == 1)
+                {
+                    Console.Write("Enter New Location Name:");
+                    return Console.ReadLine().ToUpper();
+                }
+                else if (option == 0)
+                {
+                    return "Abort";
+                }
+                else
+                {
+                    return ChooseLocation(employee).Result;
+                }
             }
             else
             {
-                Console.WriteLine("You can only choose from above list");
+                Console.Write("Choose from the above options:");
+                int.TryParse(Console.ReadLine(), out option);
+                if (option == 0)
+                {
+                    return "Exit";
+                }
+                if (option > 0 && option <= locations.Count)
+                {
+                    return locations[option - 1];
+                }
+                else
+                {
+                    Console.WriteLine("You can only choose from above list");
+                }
+                return await ChooseLocation(employee);
             }
-            return await ChooseLocation(employee);
         }
     }
 }

@@ -8,32 +8,24 @@ namespace Presentation.Services
     {
 
         private readonly IRoleManager _roleManager;
-        private readonly IDepartmentPropertyEntryManager _departmentPropertyEntryManager;
-        private readonly ILocationPropertyEntryManager _locationPropertyEntryManager;
         private readonly IRolePropertyEntryManager _rolePropertyEntryManager;
-        private readonly ILocationManager _locationManager;
-        private readonly IDepartmentManager _departmentManager;
-        public RoleManagement(IRoleManager roleManager, ILocationPropertyEntryManager locationPropertyEntryManager, IDepartmentPropertyEntryManager departmentPropertyEntryManager, IRolePropertyEntryManager rolePropertyEntryManager, ILocationManager locationManager, IDepartmentManager departmentManager)
+        public RoleManagement(IRoleManager roleManager, IRolePropertyEntryManager rolePropertyEntryManager)
         {
             _roleManager = roleManager;
-            _departmentPropertyEntryManager = departmentPropertyEntryManager;
-            _locationPropertyEntryManager = locationPropertyEntryManager;
             _rolePropertyEntryManager = rolePropertyEntryManager;
-            _locationManager = locationManager;
-            _departmentManager = departmentManager;
         }
 
         private async Task<bool> GetRoleDetailsInput(Roles role)
         {
             Console.WriteLine("Roles");
-            role.DepartmentId = await _departmentPropertyEntryManager.ChooseDepartment();
-            if (role.DepartmentId == 0)
+            role.Department = await _rolePropertyEntryManager.ChooseDepartment();
+            if (role.Department == "Exit")
             {
                 return false;
             }
             Console.WriteLine("Roles");
-            role.LocationId =await _locationPropertyEntryManager.ChooseLocation();
-            if (role.LocationId == 0)
+            role.Location = await _rolePropertyEntryManager.ChooseLocation();
+            if (role.Location == "Exit")
             {
                 return false;
             }
@@ -65,7 +57,7 @@ namespace Presentation.Services
                     bool result = await GetRoleDetailsInput(roleModel);
                     if (result && await _roleManager.AddRole(roleModel))
                     {
-                        Console.WriteLine($"RoleList Added Successfully with Id:{roleModel.Id}");
+                        Console.WriteLine($"New Role Added Successfully");
                         return roleModel.Id;
                     }
                     else
@@ -73,7 +65,7 @@ namespace Presentation.Services
                         Console.WriteLine("Failed to Add Role");
                         return -1;
                     }
-                   
+
                 }
                 else
                 {
@@ -94,7 +86,7 @@ namespace Presentation.Services
             for (int i = 0; i < roleList.Count; i++)
             {
                 Console.WriteLine(new string('-', 66));
-                Console.WriteLine("{0,-24} {1,-18} {2,-12} {3,-18}", roleList[i].Name,await _departmentManager.GetDepartmentName(roleList[i].DepartmentId),await _locationManager.GetLocationName(roleList[i].LocationId), roleList[i].Description);
+                Console.WriteLine("{0,-24} {1,-18} {2,-12} {3,-18}", roleList[i].Name, roleList[i].Department, roleList[i].Location, roleList[i].Description);
             }
         }
 
