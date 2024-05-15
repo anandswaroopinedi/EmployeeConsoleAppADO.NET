@@ -16,8 +16,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Enter Project");
             Console.Write("Choose options from above:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return await AddProject();
+            }
+            else if (option == 0)
             {
                 return 0;
             }

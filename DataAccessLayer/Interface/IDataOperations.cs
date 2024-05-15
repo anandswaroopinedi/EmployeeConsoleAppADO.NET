@@ -22,8 +22,8 @@ namespace DataAccessLayer.Interface
         public Task<List<Department>> GetDepartments();
         public Task<bool> DeleteEmployee(string id);
         public Task<bool> UpdateEmployee(Employee employee);
-        public Task<List<T>> Read<T>(string filePath);
-        public Task<bool> Write<T>(List<T> t, string filePath);
+/*        public Task<List<T>> Read<T>(string filePath);
+        public Task<bool> Write<T>(List<T> t, string filePath);*/
 
     }
 }

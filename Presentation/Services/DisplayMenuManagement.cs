@@ -42,7 +42,14 @@ namespace Presentation.Services
                 await DisplayMenus(_startAppDisplayMenu);
                 Console.Write("Choose any option from above:");
                 int option;
-                int.TryParse(Console.ReadLine(), out option);
+                string input = Console.ReadLine();
+                int.TryParse(input, out option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    StartAppDisplayOptionMenu();
+                    return;
+                }
                 switch (option)
                 {
                     case 0:
@@ -72,8 +79,13 @@ namespace Presentation.Services
             Console.WriteLine("0. Go Back");
             Console.WriteLine("1. Add Employee");
             Console.Write("Choose any1 option from above:");
-            int option;
-            int.TryParse(Console.ReadLine(), out option);
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return await EmployeeDisplayDefaultMenu();
+            }
             switch (option)
             {
                 case 0:
@@ -98,10 +110,13 @@ namespace Presentation.Services
             Console.WriteLine("Options :");
             await DisplayMenus(_employeeDisplayMenu);
             Console.Write("Choose any option from above:");
-            int option;
-            int.TryParse(Console.ReadLine(), out option);
-            
-            
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return await EmployeeDisplayAdjustedMenu();
+            }
             switch (option)
             {
                 case 0:
@@ -156,8 +171,14 @@ namespace Presentation.Services
                 Console.WriteLine("Options :");
                 await DisplayMenus(_roleDisplaymenu);
                 Console.Write("Choose any option from above:");
-                int option;
-                int.TryParse(Console.ReadLine(), out option);
+                string input = Console.ReadLine();
+                int.TryParse(input, out int option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    RoleManagementDisplayMenu();
+                    return;
+                }
                 switch (option)
                 {
                     case 0:
@@ -185,7 +206,14 @@ namespace Presentation.Services
                 await DisplayMenus(_departmentLocationDisplaymenu);
                 int option;
                 Console.Write("Choose any option from above:");
-                int.TryParse(Console.ReadLine(), out option);
+                string input = Console.ReadLine();
+                int.TryParse(input, out option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    DepartmentLocationDisplayMenu();
+                    return ;
+                }
                 switch (option)
                 {
                     case 0:

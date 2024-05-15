@@ -28,8 +28,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Choose to Enter First Name");
             Console.Write("Choose options from above List:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return GetFirstName();
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -59,8 +65,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Choose to Enter LastName");
             Console.Write("Choose options from above List:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return GetLastName();
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -90,15 +102,20 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Upload Later");
             Console.WriteLine("2. Enter Manually Now");
-
             Console.Write("Choose from above options:");
-            int.TryParse(Console.ReadLine(), out int res);
+            string input= Console.ReadLine();
+            int.TryParse(input, out int res);
+            if(res == 0 && input!="0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                GetDateOfBirth();
+            }
             switch (res)
             {
                 case 0:
                     return "Abort";
                 case 1:
-                    return null;
+                    return "None";
                 case 2:
                     Console.Write("Enter Date Of Birth(DD/MM/YYYY):");
                     string dob = Console.ReadLine();
@@ -122,8 +139,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Choose to Enter Email");
             Console.Write("Choose options from above List:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return GetEmail();
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -155,13 +178,19 @@ namespace Presentation.Services
             Console.WriteLine("2. Enter Manually Now");
 
             Console.Write("Choose from above options:");
-            int.TryParse(Console.ReadLine(), out int res);
+            string input = Console.ReadLine();
+            int.TryParse(input, out int res);
+            if (res == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return GetMobileNo();
+            }
             switch (res)
             {
                 case 0: return "Abort";
 
                 case 1:
-                    return null;
+                    return "None";
                 case 2:
                     Console.Write("Enter Mobile No:");
                     string mobNo = Console.ReadLine();
@@ -186,8 +215,14 @@ namespace Presentation.Services
             Console.WriteLine("1. Choose to Enter Joining Date");
 
             Console.Write("Choose options from above List:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return GetJoiningDate();
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -224,8 +259,14 @@ namespace Presentation.Services
             }
 
             Console.Write("Choose from the above options:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return await ChooseProject();
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -256,8 +297,14 @@ namespace Presentation.Services
                 }
             }
             Console.Write("Choose from above options:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return DisplayEmployeeId(employee,employeeList);
+            }
+            else if (option == 0)
             {
                 return "Abort";
             }
@@ -289,12 +336,18 @@ namespace Presentation.Services
             Console.WriteLine("2. Enter Manually");
 
             Console.Write("Choose from above options:");
-            int.TryParse(Console.ReadLine(), out int option);
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return ChooseManager(emp,employeeList);
+            }
             switch (option)
             {
                 case 0: return "Abort";
                 case 1:
-                    managerId = null;
+                    managerId = "None";
                     break;
                 case 2:
                     managerId = DisplayEmployeeId(emp, employeeList);
@@ -333,7 +386,13 @@ namespace Presentation.Services
             Console.WriteLine("1. Enter New Role:");
             DisplayRolesNames(rolesList);
             Console.Write("Choose Roles from above options*:");
-            int.TryParse(Console.ReadLine(), out option);
+            string input = Console.ReadLine();
+            int.TryParse(input, out option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return await ChooseRole();
+            }
             if (option == 0)
             {
                 return "Abort";
@@ -370,7 +429,7 @@ namespace Presentation.Services
             List<Roles> rolesList = await _roleManager.GetAll();
             List<String> departments = new List<string>();
             Console.WriteLine("Select Department:");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("0.  Exit");
             int counter = 1;
             for (int j = 0; j < rolesList.Count; j++)
             {
@@ -383,10 +442,16 @@ namespace Presentation.Services
             }
             if (departments.Count == 0)
             {
-                Console.WriteLine("1. Add New Department");
+                Console.WriteLine("1.  Add New Department");
                 Console.Write("Choose from the above options:");
-                int.TryParse(Console.ReadLine(), out option);
-                if (option == 1)
+                string input = Console.ReadLine();
+                int.TryParse(input, out  option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    return ChooseDepartment(employee).Result;
+                }
+                else if (option == 1)
                 {
                     Console.Write("Enter New Department Name:");
                     return Console.ReadLine().ToUpper();
@@ -403,8 +468,14 @@ namespace Presentation.Services
             else
             {
                 Console.Write("Choose from the above options:");
-                int.TryParse(Console.ReadLine(), out option);
-                if (option == 0)
+                string input = Console.ReadLine();
+                int.TryParse(input, out option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    return ChooseDepartment(employee).Result;
+                }
+                else if (option == 0)
                 {
                     return "Abort";
                 }
@@ -425,7 +496,7 @@ namespace Presentation.Services
             List<Roles> rolesList = await _roleManager.GetAll();
             List<string> locations = new List<string>();
             Console.WriteLine("Select Location:");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("0.  Exit");
             int counter = 1;
             for (int j = 0; j < rolesList.Count; j++)
             {
@@ -438,10 +509,16 @@ namespace Presentation.Services
             }
             if (locations.Count == 0)
             {
-                Console.WriteLine("1. Add New Location");
+                Console.WriteLine("1.  Add New Location");
                 Console.Write("Choose from the above options:");
-                int.TryParse(Console.ReadLine(), out option);
-                if (option == 1)
+                string input = Console.ReadLine();
+                int.TryParse(input, out option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    return GetEmail();
+                }
+                else if (option == 1)
                 {
                     Console.Write("Enter New Location Name:");
                     return Console.ReadLine().ToUpper();
@@ -458,8 +535,14 @@ namespace Presentation.Services
             else
             {
                 Console.Write("Choose from the above options:");
-                int.TryParse(Console.ReadLine(), out option);
-                if (option == 0)
+                string input = Console.ReadLine();
+                int.TryParse(input, out option);
+                if (option == 0 && input != "0")
+                {
+                    Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                    return GetEmail();
+                }
+                else if (option == 0)
                 {
                     return "Exit";
                 }

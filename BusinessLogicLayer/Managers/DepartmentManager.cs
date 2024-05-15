@@ -40,7 +40,6 @@ namespace BusinessLogicLayer.Managers
             List<Department> departmentList = GetAll().Result;
             if (!CheckDepartmentExists(dept.Name, departmentList))
             {
-                dept.Id = departmentList.Count + 1;
                 departmentList.Add(dept);
                 Console.WriteLine(dept.Name);
                 if(await _dataOperations.AddDepartmentToDb(dept))

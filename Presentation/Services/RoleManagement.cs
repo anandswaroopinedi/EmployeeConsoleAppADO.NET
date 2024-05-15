@@ -41,8 +41,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Enter New Role:");
             Console.Write("Choose option from above:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                return AddRole().Result;
+            }
+            else if (option == 0)
             {
                 return 0;
             }
@@ -82,11 +88,11 @@ namespace Presentation.Services
         public async Task DisplayAll()
         {
             List<Roles> roleList = await _roleManager.GetAll();
-            Console.WriteLine("{0,-24} {1,-18} {2,-12} {3,-18}", "Role Name", "Department", "Location", "Description");
+            Console.WriteLine("{0,-8} {1,-24} {2,-18} {3,-12} {4,-18}","Index", "Role Name", "Department", "Location", "Description");
             for (int i = 0; i < roleList.Count; i++)
             {
                 Console.WriteLine(new string('-', 66));
-                Console.WriteLine("{0,-24} {1,-18} {2,-12} {3,-18}", roleList[i].Name, roleList[i].Department, roleList[i].Location, roleList[i].Description);
+                Console.WriteLine("{0,-8} {1,-24} {2,-18} {3,-12} {4,-18}", i+1,roleList[i].Name, roleList[i].Department, roleList[i].Location, roleList[i].Description);
             }
         }
 

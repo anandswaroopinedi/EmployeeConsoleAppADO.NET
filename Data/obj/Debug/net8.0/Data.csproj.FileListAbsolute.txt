@@ -24,3 +24,4 @@ C:\Users\anand.i\source\repos\Employee Replica\Data\obj\Debug\net8.0\refint\Data
 C:\Users\anand.i\source\repos\Employee Replica\Data\obj\Debug\net8.0\Data.pdb
 C:\Users\anand.i\source\repos\Employee Replica\Data\obj\Debug\net8.0\Data.genruntimeconfig.cache
 C:\Users\anand.i\source\repos\Employee Replica\Data\obj\Debug\net8.0\ref\Data.dll
+C:\Users\anand.i\source\repos\Employee Replica\Data\obj\Debug\net8.0\Data.sourcelink.json

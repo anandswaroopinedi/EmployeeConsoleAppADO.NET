@@ -16,8 +16,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Enter Department");
             Console.Write("Choose options from above:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                AddDepartment();
+            }
+            else if (option == 0)
             {
                 return;
             }
@@ -50,7 +56,7 @@ namespace Presentation.Services
             Console.WriteLine($"Department List(Count:{departmentList.Count}):");
             for (int i = 0; i < departmentList.Count; i++)
             {
-                Console.WriteLine($"{departmentList[i].Id}. {departmentList[i].Name}");
+                Console.WriteLine($"{i+1}. {departmentList[i].Name}");
             }
         }
     }

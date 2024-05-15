@@ -16,8 +16,14 @@ namespace Presentation.Services
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Enter Location");
             Console.Write("Choose options from above:");
-            int.TryParse(Console.ReadLine(), out int option);
-            if (option == 0)
+            string input = Console.ReadLine();
+            int.TryParse(input, out int option);
+            if (option == 0 && input != "0")
+            {
+                Console.WriteLine("Enter the choice correctly(Only the above mentioned choices are valid");
+                AddLocation();
+            }
+            else if (option == 0)
             {
                 return;
             }
@@ -54,7 +60,7 @@ namespace Presentation.Services
             Console.WriteLine($"Locations(Count:{locationList.Count}):");
             for (int i = 0; i < locationList.Count; i++)
             {
-                Console.WriteLine($"{locationList[i].Id}. {locationList[i].Name}");
+                Console.WriteLine($"{i+1}. {locationList[i].Name}");
             }
         }
     }
