@@ -100,7 +100,20 @@ namespace DataAccessLayer.Services
         }
         public async Task<bool> UpdateEmployee(Employee employee)
         {
-            return false;
+            Employee e=EmployeesDb.Where(emp => emp.Id == employee.Id).FirstOrDefault();
+            e = employee;
+            try
+            {
+                SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+                // Provide for exceptions.
+            }
+            
         }
         public async Task<bool> DeleteEmployee(string id)
         {
